@@ -1,0 +1,168 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="zh-tw">
+<meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
+<title>功能表</title>
+<base target="main">
+<script src="jquery-1.11.2.min.js"></script>
+<style>
+ul {
+    list-style-type: none;
+    padding: 0;
+	/*
+    border: 1px solid #ddd;
+	*/
+}
+
+ul li {
+    padding: 16px;
+    border-bottom: 5px solid rgb(25, 92, 192);
+}
+
+ul li:last-child {
+    border-bottom: none
+}
+
+A {
+	TEXT-DECORATION: none;
+}
+
+.menuItem {
+	text-align: center;
+	font: 150% arial;
+	color: #000000;
+	background-color: #DADDFC;
+	font-weight: bold;
+	width: 60%;
+	height:auto;
+	padding-top: 6px;
+	padding-bottom: 3px;
+	margin: auto;
+	border-radius: 15px;
+	border-style:double;
+	border-color:#0a62d0;
+	border-width:thick;
+	cursor:pointer;
+	text-decoration:none;
+}
+/* unvisited link */
+a:link {
+    color: white;
+}
+/* visited link */
+a:visited {
+    color: rgb(169, 31, 208);
+}
+
+/* mouse over link */
+a:hover {
+    color: rgb(0, 157, 255);
+}
+
+/* selected link */
+a:active {
+    color: rgb(219, 32, 32);
+} 
+
+</style>
+<script>
+var bc;
+var index;
+var oid;
+
+var ipos=-1;
+var toid;
+
+var item=new Array(
+"HTML",
+"CSS",
+"實作1",
+"實作2",
+"心得",
+"回到主頁",
+);
+
+var link=new Array(
+
+"./01/index.html",
+"./02/index.html",
+"./03/index.html",
+"./04/index.html",
+"./06/index.html",
+"./07/index.html",
+);
+$(function(){
+  if (item.length==0)
+  {
+	 alert("無圖片可展示");
+	 document.body.background='http://www.polarisgo.com/0.5.2a/img/video-spin-loader.gif';
+     self.close();
+	 return false;
+  }
+
+  $(".menuItem").click(function()
+  {
+     eval('$("#' + oid + '").css("background-color","' + bc + '");');
+	 eval('$("#' + oid + '").css("cursor","pointer");');
+	 eval('$("#' + oid + '").attr("disabled",false);');
+	 
+     bc = $(this).css("background-color");
+	 $(this).css("background-color","#3CB371");
+	 $(this).css("cursor","not-allowed");
+	 $(this).attr('disabled', true);
+
+	 oid=$(this).attr("id");
+	 //alert(oid);
+  });
+});
+function chaining(){
+//
+    ipos=ipos+1;
+	
+    if(ipos==item.length)
+	{
+	   ipos=0;
+	   clearInterval(toid);	
+	}
+	top.frames['main'].location.href=link[ipos];
+	eval('$("#' + oid + '").css("background-color","' + bc + '");');
+	
+    eval('bc = $("#item' + ipos + '").css("background-color");');
+	eval('$("#item' + ipos + '").css("background-color","#3CB371");');
+
+    eval('oid=$("#item' + ipos + '").attr("id");');
+
+	toid=setTimeout('chaining()',300000);
+}
+</script>
+</head>
+
+<body bgcolor="#396EB0" onload='
+index=0;
+oid="item0";
+bc = $("#item0").css("background-color");
+$("#item0").css("background-color","#3CB371");
+$("#item0").css("cursor","not-allowed");
+chaining();
+'
+>
+<center>
+<ul>
+<script language="javascript">
+	for (var i=0;i< item.length;i++)
+    {
+		//document.write('<li class="menuItem" id="item' + i + '" style="margin:3px" onClick="top.frames[' + "'" + 'main' + "'" + '].location.href(' + "'" + link[i] + "')" +';">');
+		document.write('<li class="menuItem" id="item' + i + '" style="margin:3px" onClick="top.frames[' + "'" + 'main' + "'" + '].location.href=' + "'" + link[i] + "'" +';">');
+		document.write(item[i]);
+		document.write('</li>');
+    }
+
+</script>
+</ul>
+<b>
+<p align="center"><span style="color: #ffffff">最近更新日期：2022/6/9</p>
+</b>
+</center>
+</body>
+</html>
